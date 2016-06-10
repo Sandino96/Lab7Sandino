@@ -30,8 +30,8 @@ int main(int argc, char*argv[]){
 			int opcionSoldados = 1;
 			while(opcionSoldados != 4){
 				cout << "1.-Agregar arquero" << endl;
-				cout << "2.-Agregar asesino oculto" << endl;
-				cout << "3.-Agregar coraza dura" << endl;
+				cout << "2.-Agregar coraza dura" << endl;
+				cout << "3.-Agregar asesino oculto" << endl;
 				cout << "4.-Salir" << endl;
 				cout << "Opcion: ";
 				cin >> opcionSoldados;
@@ -43,7 +43,7 @@ int main(int argc, char*argv[]){
 					cin >> nombreArquero;
 					cout << "Ciudad de procedencia: ";
 					cin >> procedenciaArquero;
-					cout << "Edad";
+					cout << "Edad: ";
 					cin >> edadArquero;
 					cout << "Flechas en su aljaba: ";
 					cin >> flechas;
@@ -57,7 +57,7 @@ int main(int argc, char*argv[]){
 					cin >> nombreCoraza;
 					cout << "Ciudad de procedencia: ";
 					cin >> procedenciaCoraza;
-					cout << "Edad";
+					cout << "Edad: ";
 					cin >> edadCoraza;
 					cout << "Dureza de su armadura (1-10): ";
 					cin >> dureza;
@@ -74,7 +74,7 @@ int main(int argc, char*argv[]){
 					cin >> nombreAsesino;
 					cout << "Ciudad de procedencia: ";
 					cin >> procedenciaAsesino;
-					cout << "Edad";
+					cout << "Edad: ";
 					cin >> edadAsesino;
 					cout << "Capacidad de pasar desapercibido (1-10): ";
 					cin >> capacidadDesapercibido;
@@ -87,14 +87,44 @@ int main(int argc, char*argv[]){
 				}
 			}
 			escuadronesCreados.push_back(new escuadron(nombre,tropas));
-			for (int i = 0; i < tropas.size(); ++i){
-				delete tropas.at(i);
-			}
 		} else if (opcion == 2){
-
+			if(escuadronesCreados.size() >= 8){
+				vector <escuadron*> jugador1;
+				vector <escuadron*> jugador2;
+				for (int i = 0; i < escuadronesCreados.size(); i++){
+					cout << "Escuadron "<< i << " - " << escuadronesCreados.at(i) -> toString() << endl;
+				}
+				int jugador = 1;
+				cout << "Jugador " << jugador << " seleccione cuatro escuadrones según los indices de arriba"<< endl;
+				for (int i = 1; i < 5; i++){
+					int tropa;
+					cout << "Tropa " << i;
+					cin >> tropa;
+					jugador1.push_back(escuadronesCreados.at(tropa));
+					escuadronesCreados.erase(tropa);
+				}
+				jugador++;
+				cout << "Jugador " << jugador << " seleccione cuatro escuadrones según los indices de arriba"<< endl;
+				for (int i = 1; i < 5; i++){
+					int tropa;
+					cout << "Tropa " << i;
+					cin >> tropa;
+					jugador1.push_back(escuadronesCreados.at(tropa));
+					escuadronesCreados.erase(tropa);
+				}
+				bool nadieHaGanado = true;
+				jugador = 1;
+				while(nadieHaGanado){
+					
+				}
+			} else {
+				cout << "No hay suficientes escuadrones" << endl;
+			}
+		} else {
+			break;
 		}
 	}
-	for (int i = 0; i < escuadronesCreados.size(); ++i){
+	for (int i = 0; i < escuadronesCreados.size(); i++){
 		delete escuadronesCreados.at(i);
 	}
 	return 0;

@@ -14,4 +14,6 @@ class escuadron {
   	escuadron(string,vector<soldados*>);
   	virtual~escuadron();
   	string toString()const;
+  	double ataque(vector<soldados*>);
+  	double defensa(vector<soldados*>);
 };
