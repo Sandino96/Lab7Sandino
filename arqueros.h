@@ -10,6 +10,7 @@ class arqueros : public soldados{
 
   public:
   	arqueros(string,string,int,int,double);
+  	string toString()const;
   	double ataque();
   	int defensa();
 };

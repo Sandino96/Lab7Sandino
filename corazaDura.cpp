@@ -1,11 +1,12 @@
 #include "corazaDura.h"
 #include "soldados.h"
 #include <string>
+#include <sstream>
 
 using std::string;
+using std::stringstream;
 
-corazaDura::corazaDura(string nombre, string procedencia, int edad, int durezaDeArmadura, int cantidadDeLanzas):nombre(nombre),procedencia(procedencia),
-					   edad(edad), cantidadDeLanzas(cantidadDeLanzas){
+corazaDura::corazaDura(string nombre, string procedencia, int edad, int durezaDeArmadura, int cantidadDeLanzas):soldados(nombre,procedencia,edad),cantidadDeLanzas(cantidadDeLanzas){
 	if(durezaDeArmadura > 0 && durezaDeArmadura < 11){
 		this -> durezaDeArmadura = durezaDeArmadura;
 	} else {
@@ -19,4 +20,10 @@ double corazaDura::ataque(){
 
 int corazaDura::defensa(){
 	return this -> durezaDeArmadura;
+}
+
+string corazaDura::toString() const{
+	stringstream ss;
+	ss << "Coraza dura -> Nombre " << nombre << ", Cantidad de lanzas" << cantidadDeLanzas << ", Dureza de armadura" << durezaDeArmadura;
+	return ss.str();
 }

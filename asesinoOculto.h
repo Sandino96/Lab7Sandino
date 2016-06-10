@@ -10,6 +10,7 @@ class asesinoOculto : public soldados{
 
   public:
   	asesinoOculto(string,string,int,int,int);
+  	string toString()const;
   	double ataque();
   	int defensa();
 };

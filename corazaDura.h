@@ -10,6 +10,7 @@ class corazaDura : public soldados{
 
   public:
   	corazaDura(string,string,int,int,int);
+  	string toString()const;
   	double ataque();
   	int defensa();
 };

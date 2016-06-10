@@ -1,5 +1,8 @@
 #include "escuadron.h"
 #include "soldados.h"
+#include "corazaDura.h"
+#include "arqueros.h"
+#include "asesinoOculto.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -9,12 +12,13 @@ using std::vector;
 using std::cin;
 using std::endl;
 
-int main(){
+int main(int argc, char*argv[]){
 	int opcion = 1;
+	vector <escuadron*> escuadronesCreados;
 	while(opcion != 3){
-		cout << "1.- Agregar escuadron: " << endl;
-		cout << "1.- Simulacion: " << endl;
-		cout << "3.- Salir: " << endl;
+		cout << "1.- Agregar escuadron" << endl;
+		cout << "2.- Simulacion" << endl;
+		cout << "3.- Salir" << endl;
 		cout << "Opcion: ";
 		cin >> opcion;
 		if (opcion == 1){
@@ -22,11 +26,13 @@ int main(){
 			cout << "Nombre del escuadron: ";
 			cin.ignore();
 			getline(cin,nombre);
+			vector <soldados*> tropas;
 			int opcionSoldados = 1;
-			while(opcion != 4){
-				cout << "1.-Agregar arquero: " << endl;
-				cout << "2.-Agregar asesino oculto: " << endl;
-				cout << "3.-Agregar coraza dura: " << endl;
+			while(opcionSoldados != 4){
+				cout << "1.-Agregar arquero" << endl;
+				cout << "2.-Agregar asesino oculto" << endl;
+				cout << "3.-Agregar coraza dura" << endl;
+				cout << "4.-Salir" << endl;
 				cout << "Opcion: ";
 				cin >> opcionSoldados;
 				if (opcionSoldados == 1){
@@ -43,7 +49,8 @@ int main(){
 					cin >> flechas;
 					cout << "Precision en milimetros: ";
 					cin >> precision;
-				} else if (opcionSoldados == 1){
+					tropas.push_back(new arqueros(nombreArquero,procedenciaArquero,edadArquero,flechas,precision));
+				} else if (opcionSoldados == 2){
 					string nombreCoraza, procedenciaCoraza;
 					int edadCoraza,dureza,lanzas;
 					cout << "Nombre: ";
@@ -54,12 +61,13 @@ int main(){
 					cin >> edadCoraza;
 					cout << "Dureza de su armadura (1-10): ";
 					cin >> dureza;
-					if(dureza < 0 && dureza > 11){
+					if(dureza < 1 || dureza > 10){
 						cout << "Usted valio porque no respeto los limites: Dureza = 1";
 					}
 					cout << "Precision en milimetros: ";
 					cin >> lanzas;
-				} else if (opcionSoldados == 1){
+					tropas.push_back(new corazaDura(nombreCoraza,procedenciaCoraza,edadCoraza,dureza,lanzas));
+				} else if (opcionSoldados == 3){
 					string nombreAsesino, procedenciaAsesino;
 					int edadAsesino,asesinos,capacidadDesapercibido;
 					cout << "Nombre: ";
@@ -70,16 +78,24 @@ int main(){
 					cin >> edadAsesino;
 					cout << "Capacidad de pasar desapercibido (1-10): ";
 					cin >> capacidadDesapercibido;
-					if(dureza < 0 && dureza > 11){
+					if(capacidadDesapercibido < 1 || capacidadDesapercibido > 10){
 						cout << "Usted valio porque no respeto los limites: Capacidad de pasar desapercibido = 1" << endl;
 					}
 					cout << "Cantidad de asesinatos: ";
 					cin >> asesinos;
+					tropas.push_back(new asesinoOculto(nombreAsesino,procedenciaAsesino,edadAsesino,asesinos,capacidadDesapercibido));
 				}
 			}
-			vector <escuadron> escuadronesCreados;
-			escuadronesCreado.push_back(new escuadron);
+			escuadronesCreados.push_back(new escuadron(nombre,tropas));
+			for (int i = 0; i < tropas.size(); ++i){
+				delete tropas.at(i);
+			}
+		} else if (opcion == 2){
+
 		}
+	}
+	for (int i = 0; i < escuadronesCreados.size(); ++i){
+		delete escuadronesCreados.at(i);
 	}
 	return 0;
 }
