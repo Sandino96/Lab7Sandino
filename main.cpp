@@ -99,68 +99,64 @@ int main(int argc, char*argv[]){
 					int tropa;
 					cout << "Tropa " << i;
 					cin >> tropa;
-					if(posiciones1.size() > 0){
-						for (int j = 0; j < posiciones1.size(); j++){
-							int contadorInterno = 0;
-							if (tropa != posiciones1.at(j)){
-								contadorInterno++;
-							}
-							if (contadorInterno == posiciones1.size()){
-								posiciones1.push_back(tropa);
-								jugador1.push_back(escuadronesCreados.at(tropa));
-							}
-						}
-					} else {
-						posiciones1.push_back(tropa);
-						jugador1.push_back(escuadronesCreados.at(tropa));
-					}
+					jugador1.push_back(escuadronesCreados.at(tropa));
+					escuadronesCreados.erase(escuadronesCreados.begin() + tropa);
 				}
-				int posiciones2 = new posiciones2[4];
 				jugador++;
 				cout << "Jugador " << jugador << " seleccione cuatro escuadrones según los indices de arriba"<< endl;
 				for (int i = 1; i < 5; i++){
 					int tropa;
 					cout << "Tropa " << i;
 					cin >> tropa;
-					if(posiciones2.size() > 0){
-						for (int j = 0; j < posiciones2.size(); j++){
-							int contadorInterno = 0;
-							if (tropa != posiciones2.at(j)){
-								contadorInterno++;
-							}
-							if (contadorInterno == posiciones2.size()){
-								posiciones2.push_back(tropa);
-								jugador2.push_back(escuadronesCreados.at(tropa));
-							}
-						}
-					} else {
-						posiciones2.push_back(tropa);
-						jugador2.push_back(escuadronesCreados.at(tropa));
-					}
+					jugador2.push_back(escuadronesCreados.at(tropa));
+					escuadronesCreados.erase(escuadronesCreados.begin() + tropa);
 				}
-				for (int i = 0; i < posiciones1.size(); i++){
-					delete posiciones1.at(i);
-					delete posiciones2.at(i);
-				}
+				jugador--;
 				bool nadieHaGanado = true;
-				while(nadieHaGanado){
-					for (int i = 0; i < ; ++i){
-						
+				while(nadieHaGanado){					
+					int posicionFrontal1, posicionFrontal2;
+					int posicionRetaguardia1,posicionRetaguardia2;
+					for (int i = 0; i < posiciones1.size(); i++){
+						cout << i << " - "<< jugador1.at(i) -> toString() << endl;
+					}
+					cout << "Escuadron que desee para su frontal: ";
+					cin >> posicionFrontal1;
+					cout << "Escuadron que desee para su retaguardia: ";
+					cin >> posicionRetaguardia1;
+					for (int i = 0; i < posiciones2.size(); i++){
+						cout << i << " - "<< jugador2.at(i) -> toString() << endl;
+					}
+					cout << "Escuadron que desee para su frontal: ";
+					cin >> posicionFrontal2;
+					cout << "Escuadron que desee para su retaguardia: ";
+					cin >> posicionRetaguardia2;
+					if(jugador == 1){
+						if((jugador1.at(posicionFrontal1) -> ataqueEscuadron()) > (jugador2.at(posicionRetaguardia2) -> defensaEscuadron())){
+							cout << "Gana jugador 1" << endl;
+							nadieHaGanado = false;
+						} else {
+							jugador++;
+						}
+					} else if (jugador == 2){
+						if((jugador2.at(posicionFrontal2) -> ataqueEscuadron()) > (jugador1.at(posicionRetaguardia1)  -> defensaEscuadron())){
+							cout << "Gana jugador 2" << endl;
+							nadieHaGanado = false;
+						} else {
+							jugador--;
+						}
 					}
 				}
 				for (int i = 0; i < jugador1.size(); i++){
 					delete jugador1.at(i);
 					delete jugador2.at(i);
 				}
-			} else {
+			} else
 				cout << "No hay suficientes escuadrones" << endl;
-			}
 		} else {
 			break;
 		}
 	}
-	for (int i = 0; i < escuadronesCreados.size(); i++){
+	for (int i = 0; i < escuadronesCreados.size(); i++)
 		delete escuadronesCreados.at(i);
-	}
 	return 0;
 }

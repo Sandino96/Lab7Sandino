@@ -21,7 +21,7 @@ string escuadron::toString()const{
 	return ss.str();
 }
 
-double escuadron::ataque(vector <soldados*> tropa){
+double escuadron::ataqueEscuadron(){
 	double totalAtaque;
 	for (int i = 0; i < tropa.size(); i++){
 		totalAtaque += tropa.at(i) -> ataque();
@@ -29,7 +29,7 @@ double escuadron::ataque(vector <soldados*> tropa){
 	return totalAtaque;
 }
 
-double escuadron::defensa(vector <soldados*> tropa){
+double escuadron::defensaEscuadron(){
 	double totalDefensa;
 	for (int i = 0; i < tropa.size(); i++){
 		totalDefensa += tropa.at(i) -> defensa();
